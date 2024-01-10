@@ -1,15 +1,23 @@
 // ContactList.js
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { createSelector } from 'reselect'; // Import createSelector from reselect
 import { deleteContact } from './contactsSlice';
 
-const ContactList = () => {
-  const filteredContacts = useSelector(state => {
-    const { items, filter } = state.contacts;
+// Define a memoized selector using createSelector
+const selectContactsSlice = state => state.contacts;
+const selectFilteredContacts = createSelector(
+  [selectContactsSlice],
+  contactsSlice => {
+    const { items, filter } = contactsSlice || {};
     return items.filter(contact =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
-  });
+  }
+);
+
+const ContactList = () => {
+  const filteredContacts = useSelector(selectFilteredContacts); // Use the memoized selector
 
   const dispatch = useDispatch();
 
