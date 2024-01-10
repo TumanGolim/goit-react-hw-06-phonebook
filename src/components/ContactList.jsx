@@ -1,10 +1,8 @@
-// ContactList.js
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect'; // Import createSelector from reselect
+import { createSelector } from 'reselect'; 
 import { deleteContact } from './contactsSlice';
 
-// Define a memoized selector using createSelector
 const selectContactsSlice = state => state.contacts;
 const selectFilteredContacts = createSelector(
   [selectContactsSlice],
@@ -17,7 +15,7 @@ const selectFilteredContacts = createSelector(
 );
 
 const ContactList = () => {
-  const filteredContacts = useSelector(selectFilteredContacts); // Use the memoized selector
+  const filteredContacts = useSelector(selectFilteredContacts); 
 
   const dispatch = useDispatch();
 
