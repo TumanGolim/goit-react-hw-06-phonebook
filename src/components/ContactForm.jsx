@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { addContact } from './contactsSlice';
 
@@ -7,6 +7,7 @@ const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.items);
 
   const handleNameChange = event => {
     setName(event.target.value);
@@ -22,6 +23,14 @@ const ContactForm = () => {
       return;
     }
 
+    const isContactUnique = contacts.every(
+      contact => contact.name.toLowerCase() !== name.toLowerCase()
+    );
+    if (!isContactUnique) {
+      alert('Contact with this name already exists');
+      return;
+    }
+
     const newContact = {
       id: nanoid(),
       name: name,
@@ -31,6 +40,7 @@ const ContactForm = () => {
     dispatch(addContact(newContact));
     setName('');
     setNumber('');
+    alert('Contact added successfully');
   };
 
   return (

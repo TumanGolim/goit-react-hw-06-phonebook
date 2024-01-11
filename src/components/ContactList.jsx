@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createSelector } from 'reselect'; 
+import { createSelector } from 'reselect';
 import { deleteContact } from './contactsSlice';
 
 const selectContactsSlice = state => state.contacts;
@@ -15,8 +15,7 @@ const selectFilteredContacts = createSelector(
 );
 
 const ContactList = () => {
-  const filteredContacts = useSelector(selectFilteredContacts); 
-
+  const filteredContacts = useSelector(selectFilteredContacts);
   const dispatch = useDispatch();
 
   const handleDeleteContact = id => {
